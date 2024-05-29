@@ -212,7 +212,183 @@ INSERT INTO Detalles_Venta (venta_id, producto_id, cantidad, precio_unitario) VA
 
 ### Consultas SQL
 
+#### 1. Obtener todos los productos disponibles
 
+```sql
+SELECT * FROM Productos;
+```
+
+#### 2. Obtener el nombre y el precio de los productos cuyo stock es menor a 50
+
+```sql
+SELECT nombre, precio FROM Productos WHERE stock < 50;
+```
+
+#### 3. Listar las ventas realizadas por un empleado específico
+
+```sql
+SELECT * FROM Ventas WHERE empleado_id = 1;
+```
+
+#### 4. Calcular el total de ventas realizadas en un mes específico
+
+```sql
+SELECT SUM(total) AS total_ventas FROM Ventas WHERE MONTH(fecha) = 5 AND YEAR(fecha) = 2023;
+```
+
+#### 5. Obtener el nombre del cliente y el total de cada venta
+
+```sql
+SELECT Clientes.nombre, Ventas.total FROM Ventas
+JOIN Clientes ON Ventas.cliente_id = Clientes.id;
+```
+
+#### 6. Listar los productos vendidos en una venta específica
+
+```sql
+SELECT Productos.nombre FROM Detalles_Venta
+JOIN Productos ON Detalles_Venta.producto_id = Productos.id
+WHERE Detalles_Venta.venta_id = 1;
+```
+
+#### 7. Calcular el stock total de productos por tipo
+
+```sql
+SELECT tipo, SUM(stock) AS total_stock FROM Productos GROUP BY tipo;
+```
+
+#### 8. Obtener el nombre y el salario de los empleados que ganan más de 2000
+
+```sql
+SELECT nombre, salario FROM Empleados WHERE salario > 2000;
+```
+
+#### 9. Listar los proveedores y la cantidad total de productos que suministran
+
+```sql
+SELECT Proveedores.nombre, COUNT(Productos.id) AS total_productos FROM Proveedores
+JOIN Productos ON Proveedores.id = Productos.proveedor_id
+GROUP BY Proveedores.nombre;
+```
+
+#### 10. Obtener el historial de ventas de un cliente específico
+
+```sql
+SELECT * FROM Ventas WHERE cliente_id = 1;
+```
+
+#### 11. Listar los empleados y el total de ventas que han realizado
+
+```sql
+SELECT Empleados.nombre, SUM(Ventas.total) AS total_ventas FROM Ventas
+JOIN Empleados ON Ventas.empleado_id = Empleados.id
+GROUP BY Empleados.nombre;
+```
+
+#### 12. Obtener el precio promedio de los productos
+
+```sql
+SELECT AVG(precio) AS precio_promedio FROM Productos;
+```
+
+#### 13. Listar las ventas realizadas entre dos fechas específicas
+
+```sql
+SELECT * FROM Ventas WHERE fecha BETWEEN '2023-05-01' AND '2023-05-05';
+```
+
+#### 14. Obtener el nombre del cliente que ha realizado la compra más grande
+
+```sql
+SELECT Clientes.nombre FROM Ventas
+JOIN Clientes ON Ventas.cliente_id = Clientes.id
+ORDER BY Ventas.total DESC LIMIT 1;
+```
+
+#### 15. Calcular el total de productos vendidos por tipo en un mes específico
+
+```sql
+SELECT Productos.tipo, SUM(Detalles_Venta.cantidad) AS total_vendidos FROM Detalles_Venta
+JOIN Productos ON Detalles_Venta.producto_id = Productos.id
+JOIN Ventas ON Detalles_Venta.venta_id = Ventas.id
+WHERE MONTH(Ventas.fecha) = 5 AND YEAR(Ventas.fecha) = 2023
+GROUP BY Productos.tipo;
+```
+
+#### 16. Obtener la dirección y el teléfono de los proveedores que suministran un producto específico
+
+```sql
+SELECT Proveedores.direccion, Proveedores.telefono FROM Proveedores
+JOIN Productos ON Proveedores.id = Productos.proveedor_id
+WHERE Productos.nombre = 'Whisky Johnnie Walker';
+```
+
+#### 17. Listar los productos que no han sido vendidos
+
+```sql
+SELECT * FROM Productos WHERE id NOT IN (SELECT producto_id FROM Detalles_Venta);
+```
+
+#### 18. Calcular el total de ingresos por día
+
+```sql
+SELECT fecha, SUM(total) AS ingresos_diarios FROM Ventas GROUP BY fecha;
+```
+
+#### 19. Obtener el nombre y la dirección de los clientes que han comprado un producto específico
+
+```sql
+SELECT Clientes.nombre, Clientes.direccion FROM Clientes
+JOIN Ventas ON Clientes.id = Ventas.cliente_id
+JOIN Detalles_Venta ON Ventas.id = Detalles_Venta.venta_id
+WHERE Detalles_Venta.producto_id = 1;
+```
+
+#### 20. Listar los productos cuyo nombre contiene la palabra 'Tequila'
+
+```sql
+SELECT * FROM Productos WHERE nombre LIKE '%Tequila%';
+```
+
+#### 21. Obtener el total de ventas y la cantidad de productos vendidos por cada proveedor
+
+```sql
+SELECT Proveedores.nombre, SUM(Ventas.total) AS total_ventas, SUM(Detalles_Venta.cantidad) AS total_productos_vendidos FROM Proveedores
+JOIN Productos ON Proveedores.id = Productos.proveedor_id
+JOIN Detalles_Venta ON Productos.id = Detalles_Venta.producto_id
+JOIN Ventas ON Detalles_Venta.venta_id = Ventas.id
+GROUP BY Proveedores.nombre;
+```
+
+#### 22. Calcular el promedio de ventas diarias en un mes específico
+
+```sql
+SELECT AVG(total) AS promedio_ventas_diarias FROM Ventas
+WHERE MONTH(fecha) = 5 AND YEAR(fecha) = 2023
+GROUP BY fecha;
+```
+
+#### 23. Obtener la cantidad de clientes que han realizado compras en un rango de fechas
+
+```sql
+SELECT COUNT(DISTINCT cliente_id) AS total_clientes FROM Ventas
+WHERE fecha BETWEEN '2023-05-01' AND '2023-05-31';
+```
+
+#### 24. Listar los empleados que no han realizado ninguna venta
+
+```sql
+SELECT nombre FROM Empleados
+WHERE id NOT IN (SELECT DISTINCT empleado_id FROM Ventas);
+```
+
+#### 25. Obtener el total de productos en stock por proveedor
+
+```sql
+SELECT Proveedores.nombre, SUM(Productos.stock) AS total_stock FROM Proveedores
+JOIN Productos ON Proveedores.id = Productos.proveedor_id
+GROUP BY Proveedores.nombre;
+```
 
 
 
