@@ -3,10 +3,13 @@
 ## Paso 1: Creación de la Base de Datos y las Tablas
  
  ### -- Crear la Base de Datos
+```sql
 CREATE DATABASE LicoreriaGrande;
 USE LicoreriaGrande;
+```
 
 ### -- Crear las Tablas
+```sql
 CREATE TABLE Proveedores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -57,10 +60,11 @@ CREATE TABLE Detalles_Venta (
     FOREIGN KEY (venta_id) REFERENCES Ventas(id),
     FOREIGN KEY (producto_id) REFERENCES Productos(id)
 );
-
+```
 ## Paso 2: Inserción de Datos de Ejemplo
 
 ### -- Insertar Datos en Proveedores
+```sql
 INSERT INTO Proveedores (nombre, direccion, telefono) VALUES
 ('Bodegas Torres', 'Calle del Vino 10', '123-4567'),
 ('Diageo', 'Avenida del Whisky 20', '234-5678'),
@@ -82,8 +86,9 @@ INSERT INTO Proveedores (nombre, direccion, telefono) VALUES
 ('Moët Hennessy', 'Boulevard del Champagne 180', '890-1235'),
 ('Remy Cointreau', 'Calle del Cognac 190', '901-2346'),
 ('Grupo Cuervo', 'Avenida del Tequila 200', '012-3457');
-
+```
 ### -- Insertar Datos en Productos
+```sql
 INSERT INTO Productos (nombre, tipo, precio, stock, proveedor_id) VALUES 
 ('Whisky Johnnie Walker', 'Whisky', 120.00, 50, 2),
 ('Vodka Smirnoff', 'Vodka', 80.00, 70, 2),
@@ -105,8 +110,9 @@ INSERT INTO Productos (nombre, tipo, precio, stock, proveedor_id) VALUES
 ('Whisky Chivas Regal', 'Whisky', 125.00, 25, 2),
 ('Cerveza Asahi', 'Cerveza', 33.00, 70, 9),
 ('Lager Miller', 'Cerveza', 28.00, 90, 13);
-
+```
 ### -- Insertar Datos en Clientes
+```sql
 INSERT INTO Clientes (nombre, direccion, telefono) VALUES 
 ('Juan Pérez', 'Calle 123', '555-1234'),
 ('Maria Lopez', 'Avenida 456', '555-5678'),
@@ -128,8 +134,9 @@ INSERT INTO Clientes (nombre, direccion, telefono) VALUES
 ('Miguel Chavez', 'Boulevard 1506', '555-8760'),
 ('Sandra Herrera', 'Calle 1607', '555-7650'),
 ('Antonio Vega', 'Avenida 1708', '555-6540');
-
+```
 ### -- Insertar Datos en Empleados
+```sql
 INSERT INTO Empleados (nombre, puesto, salario) VALUES 
 ('Carlos Ruiz', 'Cajero', 1500.00),
 ('Ana Torres', 'Gerente', 3000.00),
@@ -151,8 +158,9 @@ INSERT INTO Empleados (nombre, puesto, salario) VALUES
 ('Diego Alvarez', 'Vendedor', 1750.00),
 ('Beatriz Rivas', 'Cajero', 1600.00),
 ('Raul Castro', 'Vendedor', 1700.00);
-
+```
 ### -- Insertar Datos en Ventas
+```sql
 INSERT INTO Ventas (cliente_id, empleado_id, fecha, total) VALUES 
 (1, 1, '2023-05-01', 240.00),
 (2, 2, '2023-05-02', 350.00),
@@ -174,8 +182,9 @@ INSERT INTO Ventas (cliente_id, empleado_id, fecha, total) VALUES
 (18, 18, '2023-05-18', 420.00),
 (19, 19, '2023-05-19', 185.00),
 (20, 20, '2023-05-20', 300.00);
-
+```
 ### -- Insertar Datos en Detalles_Venta
+```sql
 INSERT INTO Detalles_Venta (venta_id, producto_id, cantidad, precio_unitario) VALUES 
 (1, 1, 2, 120.00),
 (2, 2, 3, 80.00),
@@ -198,7 +207,7 @@ INSERT INTO Detalles_Venta (venta_id, producto_id, cantidad, precio_unitario) VA
 (19, 19, 19, 33.00),
 (20, 20, 20, 28.00);
 
-
+```
 ## Paso 3: Consultas SQL
 
 ### Consultas SQL
